@@ -1,5 +1,7 @@
 import { merge } from 'lodash';
+import { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { useSelector } from 'react-redux';
 import { ApexOptions } from "apexcharts";
 
 // material
@@ -33,11 +35,32 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443, 4443];
+const CHART_DATA = [4344, 5435, 1443];
 
 export default function AnalyticsCurrentVisits() {
   const theme = useTheme();
-console.log(theme.palette);
+
+  const salesData = useSelector((state: any) => state.stats);
+  const [sales, setSales] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+
+  // useEffect(()=>{
+  //   const chartData: any = [];
+  //   salesData.forEach((sale: any, index: number) =>{
+  //     let monthlySales = sale.monthlyData.map((monthSale: any) => {
+  //       return monthSale?.saleStats?.totalSales
+  //     })
+  //     let year = sale?.year;
+  //     chartData.push({
+  //       name: year,
+  //       type: CHART_DATA_TYPES[index],
+  //       data:monthlySales,
+  //     })
+  //   })
+  //   setYearData(chartData)
+
+  // },[salesData])
   const chartOptions: any = merge(BaseOptionChart(), {
     colors: [
       theme.palette.primary.main,
@@ -45,7 +68,7 @@ console.log(theme.palette);
       // theme.palette.chart.violet[0],
       // theme.palette.chart.yellow[0],
     ],
-    labels: ['America', 'Asia', 'Europe', 'Africa'],
+    labels: ['Electronics', 'Books', 'Home'],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -65,7 +88,7 @@ console.log(theme.palette);
 
   return (
     <Card>
-      <CardHeader title="Current Visits" />
+      <CardHeader title="Sales By Category" />
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
       </ChartWrapperStyle>

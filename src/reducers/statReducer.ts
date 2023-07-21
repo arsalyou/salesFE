@@ -1,10 +1,12 @@
 import { STATS } from '../constants';
 
-const imagesReducer = (state = [], action: any) => {
+const statReducer = (state = [], action: any) => {
+    console.log(action);
+
     if (action.type === STATS.LOAD_SUCCESS) {
-        return [...state, ...action.images];
+        return [...state, ...action.stats.salesquery];
     }
     return state;
 };
 
-export default imagesReducer;
+export default statReducer;

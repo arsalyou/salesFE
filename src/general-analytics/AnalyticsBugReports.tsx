@@ -44,7 +44,7 @@ export default function AnalyticsBugReports() {
       </IconWrapperStyle>
       <Typography variant="h3">{(TOTAL)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Bug Reports
+        Visitors
       </Typography>
     </RootStyle>
   );

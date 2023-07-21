@@ -66,7 +66,6 @@ export default function BaseOptionChart() {
     color: theme.palette.text.primary,
     ...theme.typography.h3
   };
-  console.log(theme.palette);
   return {
     // Colors
     colors: [

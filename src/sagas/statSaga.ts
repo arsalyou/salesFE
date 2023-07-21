@@ -15,20 +15,48 @@ export function* handleStatsLoad() : any{
         console.log('loading');
         //const stats1 = yield call(fetchStats);
         const { data } = yield client.query({ query: gql`
-{
-    salesquery {
-    product
-    region
-    salesRevenue
-  } }
+        {
+            salesquery {
+            _id
+            productID {
+      category
+      _id
+      price
+    }
+    customerIDs{
+      country
+      age
+      name
+      gender
+    }
+            dailyData {
+            date
+            saleStats {
+                totalSales
+                totalUnits
+            }
+            }
+            monthlyData {
+            month
+            saleStats {
+                totalSales
+                totalUnits
+            }
+            }
+            
+            year
+            yearlySalesTotal
+            yearlyTotalSoldUnits
+        }
+        }
 `
 });
         
         
 
-        const stats = yield call(useFetchStats);
-
-        yield put(setStats(stats));
+        // const stats = yield call(data);
+        console.log('data', data);
+        yield put(setStats(data));
     } catch (error) {
         yield put(setError(error));
     }

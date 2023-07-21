@@ -1,5 +1,8 @@
+
 import { merge } from 'lodash';
+import { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { useSelector } from 'react-redux';
 // material
 import { Card, CardHeader, Box } from '@mui/material';
 //
@@ -7,50 +10,48 @@ import { BaseOptionChart } from '../components/charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [
-  {
-    name: 'Team A',
-    type: 'column',
-    data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-  },
-  {
-    name: 'Team B',
-    type: 'area',
-    data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-  },
-  {
-    name: 'Team C',
-    type: 'line',
-    data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
-  }
-];
+// interface SalesData {
+//   product: string;
+//   salesRevenue: number;
+// }
 
-export default function AnalyticsWebsiteVisits() {
+const CHART_DATA_TYPES = ['column', 'area', 'line' ];
+
+const AnalyticsWebsiteVisits: React.FC = () =>  {
+  const salesData = useSelector((state: any) => state.stats);
+  const [yearData, setYearData] = useState([]);
+
+  useEffect(()=>{
+    const chartData: any = [];
+    salesData.forEach((sale: any, index: number) =>{
+      let monthlySales = sale.monthlyData.map((monthSale: any) => {
+        return monthSale?.saleStats?.totalSales
+      })
+      let year = sale?.year;
+      chartData.push({
+        name: year,
+        type: CHART_DATA_TYPES[index],
+        data:monthlySales,
+      })
+    })
+    setYearData(chartData)
+
+  },[salesData])
+  
+
   const chartOptions: any = merge(BaseOptionChart(), {
     stroke: { width: [0, 2, 3] },
     plotOptions: { bar: { columnWidth: '14%' } },
     fill: { type: ['solid', 'gradient', 'solid'] },
-    labels: [
-      '01/01/2003',
-      '02/01/2003',
-      '03/01/2003',
-      '04/01/2003',
-      '05/01/2003',
-      '06/01/2003',
-      '07/01/2003',
-      '08/01/2003',
-      '09/01/2003',
-      '10/01/2003',
-      '11/01/2003'
-    ],
-    xaxis: { type: 'datetime' },
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    // xaxis: { type: 'datetime' },
     tooltip: {
       shared: true,
       intersect: false,
       y: {
         formatter: (y: any) => {
           if (typeof y !== 'undefined') {
-            return `${y.toFixed(0)} visits`;
+            return `$${y.toFixed(0)}`;
           }
           return y;
         }
@@ -60,10 +61,12 @@ export default function AnalyticsWebsiteVisits() {
 
   return (
     <Card>
-      <CardHeader title="Website Visits" subheader="(+43%) than last year" />
+      <CardHeader title="Monthly Sales" subheader="of last three years" />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-        <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
+        <ReactApexChart type="line" series={yearData} options={chartOptions} height={364} />
       </Box>
     </Card>
   );
 }
+
+export default AnalyticsWebsiteVisits;

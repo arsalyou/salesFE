@@ -4,9 +4,9 @@ const loadStats = () => ({
     type: STATS.LOAD,
 });
 
-const setStats = (images: any) => ({
+const setStats = (stats: any) => ({
     type: STATS.LOAD_SUCCESS,
-    images,
+    stats,
 });
 
 const setError = (error: any) => ({
