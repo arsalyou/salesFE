@@ -17,5 +17,5 @@ Followed DDD approach <br />
 Used Material UI <br />
 Fetch data at the time of page load as data is being reused among multiple components <br />
 This saves multiple queries cost to server <br />
-Implemented responsive designs for mobile friendly views <br />
+Implemented mobile responsive designs <br />
 
