@@ -1,10 +1,12 @@
 // material
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Container, Typography } from '@mui/material';
+import { Box, Grid, Container, Typography, Alert } from '@mui/material';
 import { loadStats, loadVisitors } from './actions';
 import { useDispatch } from "react-redux";
 import ThemeConfig from "./theme";
 import {Button} from "@mui/material";
+import { useSelector } from 'react-redux';
+
 import {
   AnalyticsNewUsers,
   AnalyticsBugReports,
@@ -24,6 +26,9 @@ import {
 
 export default function GeneralAnalytics() {
   const dispatch = useDispatch();
+  const errorMsg = useSelector((state: any) => state.error);
+
+  console.log('errorMsg', errorMsg)
   const [darkMode, setDarkMode] = useState(true);
   useEffect(() => {
     console.log('dispatching')
@@ -32,12 +37,12 @@ export default function GeneralAnalytics() {
   }, [dispatch]);
 
 
-
   return (
     <ThemeConfig themePref={darkMode ? 'dark' : 'light'}>
 
       <Container>
-       
+      {errorMsg && <Alert sx={{mt: 5}} severity="error">Error fetching data!</Alert>}
+
         <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={6}>
             <Box sx={{ p: 5 }}>
