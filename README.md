@@ -19,3 +19,17 @@ Fetch data at the time of page load as data is being reused among multiple compo
 This saves multiple queries cost to server <br />
 Implemented mobile responsive designs <br />
 
+
+## Run test cases
+
+### `npm test`
+
+
+## Run Cypress test cases
+
+### `npx cypress open`
+
+Once browser window get openened, execute test suits 
+
+
+

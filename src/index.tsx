@@ -2,20 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import AnalyticsConversionRates from './general-analytics/AnalyticsConversionRates';
-import ThemeConfig from "./theme";
+
 import GeneralAnalytics from './GeneralAnalytics';
 import { Provider } from 'react-redux';
 
-import { useSelector } from 'react-redux';
-import { useDispatch } from "react-redux";
+
 import configureStore from './store';
 import {
   ApolloProvider,
   InMemoryCache,
   ApolloClient,
-  HttpLink,
-  ApolloLink
 } from '@apollo/client';
 
 const store = configureStore();

@@ -27,6 +27,8 @@ import {
 export default function GeneralAnalytics() {
   const dispatch = useDispatch();
   const errorMsg = useSelector((state: any) => state.error);
+  const data = useSelector((state: any) => state.stats);
+
 
   console.log('errorMsg', errorMsg)
   const [darkMode, setDarkMode] = useState(true);
@@ -57,7 +59,7 @@ export default function GeneralAnalytics() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AnalyticsWeeklySales />
+            <AnalyticsWeeklySales/>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AnalyticsNewUsers />
