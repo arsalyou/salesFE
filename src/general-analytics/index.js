@@ -8,7 +8,7 @@ export { default as AnalyticsWeeklySales } from './AnalyticsWeeklySales';
 export {default as SalesConversionRate} from './SalesConversionRate'
 export {default as ActualVsTargetSales} from './TargetSales';
 export {default as AnalyticsProfitTime} from './AnalyticsProfitTime'
-export {default as AnalyticsDemographics} from './AnalyticsDemographics'
+export {default as AnalyticsRadial} from './AnalyticsRadial'
 export {default as AnalyticsGeoHeatMap} from './AnalyticsGeoHeatMap'
 
 

@@ -14,7 +14,7 @@ import {
   SalesConversionRate,
   ActualVsTargetSales,
   AnalyticsProfitTime,
-  AnalyticsDemographics,
+  AnalyticsRadial,
   AnalyticsGeoHeatMap,
 } from './general-analytics';
 
@@ -32,6 +32,8 @@ export default function GeneralAnalytics() {
       <Container>
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Hi, Welcome back</Typography>
+          <Typography variant="h4">Hi, Welcome back</Typography>
+
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
@@ -61,7 +63,10 @@ export default function GeneralAnalytics() {
           <Grid item xs={12} md={12} lg={12}>
           <ActualVsTargetSales/>
           </Grid>
-          <Grid item xs={12} md={12} lg={12}>
+          <Grid item xs={12} md={8} lg={8}>
+          <AnalyticsRadial  dataType='Ages'/>
+          </Grid>
+          <Grid item xs={12} md={4} lg={4}>
           <AnalyticsPercentPieChart dataType='Gender' />
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
@@ -69,7 +74,7 @@ export default function GeneralAnalytics() {
           </Grid>
 
           <Grid item xs={12} md={12} lg={12}>
-          <AnalyticsDemographics/>
+          <AnalyticsRadial  dataType='Analytics'/>
           </Grid>
 
           <Grid item xs={12} md={12} lg={12}>
