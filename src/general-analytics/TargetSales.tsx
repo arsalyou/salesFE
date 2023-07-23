@@ -7,18 +7,6 @@ import { fNumber } from '../utils/formatNumber';
 import { BaseOptionChart } from '../components/charts';
 import { useSelector } from 'react-redux';
 
-// utils
-//
-
-// ----------------------------------------------------------------------
-
-const CHART_DATA = [{
-  name: 'Net Profit',
-  data: [44, 55, 57]
-}, {
-  name: 'Revenue',
-  data: [76, 85, 101]
-}];
 
 export default function ActualVsTargetSales() {
 
@@ -42,7 +30,6 @@ export default function ActualVsTargetSales() {
 
   },[salesData])
 
-  console.log(sales, CHART_DATA);
 
   const chartOptions: any = merge(BaseOptionChart(), {
     stroke: {

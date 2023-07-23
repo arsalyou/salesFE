@@ -7,18 +7,6 @@ import { fNumber } from '../utils/formatNumber';
 import { BaseOptionChart } from '../components/charts';
 import { useSelector } from 'react-redux';
 
-// utils
-//
-
-// ----------------------------------------------------------------------
-
-const CHART_DATA = [{
-  name: 'Net Profit',
-  data: [44, 55, 57]
-}, {
-  name: 'Revenue',
-  data: [76, 85, 101]
-}];
 
 
 
@@ -37,10 +25,8 @@ export default function AnalyticsProfitTime() {
     salesData?.forEach((sale: any, index: number) =>{
 
       localProducts.push(sale?.productID?.name);
-      console.log(sale.year);
 
       if (sale.year === 2022){
-        console.log('2022', sale.monthlyData);
 
         sale.monthlyData.forEach((monthSale: any) => {
           revenue.push(monthSale?.saleStats?.totalSales );
@@ -52,10 +38,8 @@ export default function AnalyticsProfitTime() {
 
     })
     setSales([{name: 'Revenue' , data: revenue}, {name: 'Costs' , data: costs}, {name: 'Profit' , data: profit}]);
-    console.log(sales);
   },[salesData])
 
-  console.log(sales, CHART_DATA);
 
   const chartOptions: any = merge(BaseOptionChart(), {
     stroke: {

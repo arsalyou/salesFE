@@ -10,13 +10,13 @@ import { BaseOptionChart } from '../components/charts';
 
 // ----------------------------------------------------------------------
 
-// interface SalesData {
-//   product: string;
-//   salesRevenue: number;
-// }
+interface data {
+  dataType: string;
+}
 
 
-const AnalyticsRadial: React.FC = (props: any) => {
+const AnalyticsRadial = (props: data) => {
+  console.log('props', props)
   const salesData = useSelector((state: any) => state.stats);
   const visitorData = useSelector((state: any) => state.visits);
 
