@@ -35,32 +35,47 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443];
-
-export default function AnalyticsCurrentVisits() {
+export default function AnalyticsPercentPieChart(props: any) {
   const theme = useTheme();
 
   const salesData = useSelector((state: any) => state.stats);
-  const [sales, setSales] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [sales, setSales] = useState<number[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [title, setTitle] = useState<string>();
+  
 
 
-  // useEffect(()=>{
-  //   const chartData: any = [];
-  //   salesData.forEach((sale: any, index: number) =>{
-  //     let monthlySales = sale.monthlyData.map((monthSale: any) => {
-  //       return monthSale?.saleStats?.totalSales
-  //     })
-  //     let year = sale?.year;
-  //     chartData.push({
-  //       name: year,
-  //       type: CHART_DATA_TYPES[index],
-  //       data:monthlySales,
-  //     })
-  //   })
-  //   setYearData(chartData)
+  useEffect(() => {
+    console.log('dataType', props?.dataType);
+    if (props?.dataType === 'Gender') {
+      let maleCount = 0, femaleCount = 0;
+      salesData.forEach((sale: any, index: number) => {
+        sale.customerIDs.forEach((customer: any) => {
+          if(customer.gender === 'M'){
+            maleCount++;
+          }else{
+            femaleCount++;
+          }
+        })
+      });
+      setCategories(['Male', 'Female']);
+      setSales([maleCount, femaleCount]);
+    } else {
+      const localCategories: string[] = [];
+      const yearlySales: number[] = [];
+      salesData.forEach((sale: any, index: number) => {
+        localCategories.push(sale?.productID?.category);
+        yearlySales.push(sale?.yearlySalesTotal);
+      })
+      setCategories(localCategories);
+      setSales(yearlySales);
+    }
+    setTitle("Sales by " + props?.dataType );
 
-  // },[salesData])
+
+  }, [props, salesData])
+
+
   const chartOptions: any = merge(BaseOptionChart(), {
     colors: [
       theme.palette.primary.main,
@@ -68,7 +83,7 @@ export default function AnalyticsCurrentVisits() {
       // theme.palette.chart.violet[0],
       // theme.palette.chart.yellow[0],
     ],
-    labels: ['Electronics', 'Books', 'Home'],
+    labels: categories,
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -88,9 +103,9 @@ export default function AnalyticsCurrentVisits() {
 
   return (
     <Card>
-      <CardHeader title="Sales By Category" />
+      <CardHeader title={title} />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart type="pie" series={sales} options={chartOptions} height={280} />
       </ChartWrapperStyle>
     </Card>
   );

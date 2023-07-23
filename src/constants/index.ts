@@ -4,4 +4,10 @@ const STATS = {
     LOAD_FAIL: 'STATS_LOAD_FAIL',
 };
 
-export { STATS };
+const VISITORS = {
+    LOAD: 'VISITORS_LOAD',
+    LOAD_SUCCESS: 'VISITORS_LOAD_SUCCESS',
+    LOAD_FAIL: 'VISITORS_LOAD_FAIL',
+};
+
+export { STATS, VISITORS };

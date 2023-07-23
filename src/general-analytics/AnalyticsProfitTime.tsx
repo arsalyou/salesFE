@@ -12,30 +12,57 @@ import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [{ data: [400, 430, 448, 470] }];
+const CHART_DATA = [{
+  name: 'Net Profit',
+  data: [44, 55, 57]
+}, {
+  name: 'Revenue',
+  data: [76, 85, 101]
+}];
 
-export default function AnalyticsConversionRates() {
+
+
+export default function AnalyticsProfitTime() {
 
   const salesData = useSelector((state: any) => state.stats);
   const [sales, setSales] = useState<any>([]);
-  const [products, setProducts] = useState<string[]>([]);
 
   useEffect(()=>{
     const localProducts: string[] = [];
-    const yearlySales : number[] = [];
+    const revenue : number[] = [];
+    const costs : number[] = [];
+    const profit : number[] = [];
+
+
     salesData?.forEach((sale: any, index: number) =>{
 
       localProducts.push(sale?.productID?.name);
-      yearlySales.push(sale?.yearlySalesTotal);
-    })
-    setProducts(localProducts);
-    setSales([{data: yearlySales}]);
+      console.log(sale.year);
 
+      if (sale.year === 2022){
+        console.log('2022', sale.monthlyData);
+
+        sale.monthlyData.forEach((monthSale: any) => {
+          revenue.push(monthSale?.saleStats?.totalSales );
+          costs.push(Math.round(monthSale?.saleStats?.totalSales * Math.random()));
+          profit.push(Math.round(monthSale?.saleStats?.totalSales  * Math.random()));
+        })
+      }
+     
+
+    })
+    setSales([{name: 'Revenue' , data: revenue}, {name: 'Costs' , data: costs}, {name: 'Profit' , data: profit}]);
+    console.log(sales);
   },[salesData])
 
   console.log(sales, CHART_DATA);
 
   const chartOptions: any = merge(BaseOptionChart(), {
+    stroke: {
+      show: true,
+      width: 2,
+     
+    },
     tooltip: {
       marker: { show: false },
       y: {
@@ -46,10 +73,10 @@ export default function AnalyticsConversionRates() {
       }
     },
     plotOptions: {
-      bar: { horizontal: true, barHeight: '28%', borderRadius: 2 }
+      bar: { horizontal: false, barHeight: '28%', borderRadius: 2 }
     },
     xaxis: {
-      categories: products,
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     }
   });
 

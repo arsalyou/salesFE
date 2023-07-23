@@ -1,4 +1,4 @@
-import { STATS } from '../constants';
+import { STATS, VISITORS } from '../constants';
 
 const loadStats = () => ({
     type: STATS.LOAD,
@@ -15,9 +15,25 @@ const setError = (error: any) => ({
 });
 
 
+const loadVisitors = () => ({
+    type: VISITORS.LOAD,
+});
+
+const setVisitors = (stats: any) => ({
+    type: VISITORS.LOAD_SUCCESS,
+    stats,
+});
+
+const setVisitorsError = (error: any) => ({
+    type: VISITORS.LOAD_FAIL,
+    error,
+});
 
 export {
     loadStats,
     setStats,
     setError,
+    loadVisitors,
+    setVisitors,
+    setVisitorsError,
 };

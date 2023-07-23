@@ -12,9 +12,15 @@ import { useSelector } from 'react-redux';
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [{ data: [400, 430, 448, 470] }];
+const CHART_DATA = [{
+  name: 'Net Profit',
+  data: [44, 55, 57]
+}, {
+  name: 'Revenue',
+  data: [76, 85, 101]
+}];
 
-export default function AnalyticsConversionRates() {
+export default function ActualVsTargetSales() {
 
   const salesData = useSelector((state: any) => state.stats);
   const [sales, setSales] = useState<any>([]);
@@ -23,19 +29,27 @@ export default function AnalyticsConversionRates() {
   useEffect(()=>{
     const localProducts: string[] = [];
     const yearlySales : number[] = [];
+    const targetSales : number[] = [];
+
     salesData?.forEach((sale: any, index: number) =>{
 
       localProducts.push(sale?.productID?.name);
       yearlySales.push(sale?.yearlySalesTotal);
+      targetSales.push(sale?.targetSales);
     })
     setProducts(localProducts);
-    setSales([{data: yearlySales}]);
+    setSales([{name: 'Actual Sales' , data: yearlySales}, {name: 'Target Sales' , data: targetSales}]);
 
   },[salesData])
 
   console.log(sales, CHART_DATA);
 
   const chartOptions: any = merge(BaseOptionChart(), {
+    stroke: {
+      show: true,
+      width: 2,
+     
+    },
     tooltip: {
       marker: { show: false },
       y: {
@@ -46,7 +60,7 @@ export default function AnalyticsConversionRates() {
       }
     },
     plotOptions: {
-      bar: { horizontal: true, barHeight: '28%', borderRadius: 2 }
+      bar: { horizontal: false, barHeight: '28%', borderRadius: 2 }
     },
     xaxis: {
       categories: products,

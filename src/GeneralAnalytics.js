@@ -1,16 +1,21 @@
 // material
 import React, { useEffect } from "react";
 import { Box, Grid, Container, Typography } from '@mui/material';
-import { loadStats } from './actions';
+import { loadStats, loadVisitors } from './actions';
 import { useDispatch } from "react-redux";
 import {
   AnalyticsNewUsers,
   AnalyticsBugReports,
   AnalyticsItemOrders,
   AnalyticsWeeklySales,
-  AnalyticsCurrentVisits,
+  AnalyticsPercentPieChart,
   AnalyticsWebsiteVisits,
-  AnalyticsConversionRates
+  AnalyticsConversionRates,
+  SalesConversionRate,
+  ActualVsTargetSales,
+  AnalyticsProfitTime,
+  AnalyticsDemographics,
+  AnalyticsGeoHeatMap,
 } from './general-analytics';
 
 // ----------------------------------------------------------------------
@@ -20,6 +25,7 @@ export default function GeneralAnalytics() {
   useEffect(() => {
     console.log('dispatching')
     dispatch(loadStats());
+    dispatch(loadVisitors());
   }, [dispatch]);
 
   return (
@@ -46,13 +52,32 @@ export default function GeneralAnalytics() {
           </Grid>
   
           <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsCurrentVisits />
+            <AnalyticsPercentPieChart dataType='Category' />
           </Grid> 
  
           <Grid item xs={12} md={12} lg={12}>
             <AnalyticsConversionRates />
           </Grid>
- 
+          <Grid item xs={12} md={12} lg={12}>
+          <ActualVsTargetSales/>
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+          <AnalyticsPercentPieChart dataType='Gender' />
+          </Grid>
+          <Grid item xs={12} md={12} lg={12}>
+          <AnalyticsProfitTime/>
+          </Grid>
+
+          <Grid item xs={12} md={12} lg={12}>
+          <AnalyticsDemographics/>
+          </Grid>
+
+          <Grid item xs={12} md={12} lg={12}>
+          <AnalyticsGeoHeatMap/>
+          </Grid>
+
+
+          
         
         </Grid>
       </Container>

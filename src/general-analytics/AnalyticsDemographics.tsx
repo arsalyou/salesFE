@@ -1,0 +1,110 @@
+
+import { merge } from 'lodash';
+import { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
+import { useSelector } from 'react-redux';
+// material
+import { Card, CardHeader, Box } from '@mui/material';
+//
+import { BaseOptionChart } from '../components/charts';
+
+// ----------------------------------------------------------------------
+
+// interface SalesData {
+//   product: string;
+//   salesRevenue: number;
+// }
+
+const CHART_DATA_TYPES = ['column', 'area', 'line' ];
+
+const AnalyticsDemographics: React.FC = () =>  {
+  const salesData = useSelector((state: any) => state.stats);
+  const [yearData, setYearData] = useState([76, 67, 61, 90]);
+
+  // useEffect(()=>{
+  //   const chartData: any = [];
+  //   // salesData.forEach((sale: any, index: number) =>{
+  //   //   let monthlySales = sale.monthlyData.map((monthSale: any) => {
+  //   //     return monthSale?.saleStats?.totalSales
+  //   //   })
+  //   //   let year = sale?.year;
+  //   //   chartData.push({
+  //   //     name: year,
+  //   //     type: CHART_DATA_TYPES[index],
+  //   //     data:monthlySales,
+  //   //   })
+  //   // })
+  //   // setYearData(chartData)
+
+  // },[salesData])
+  
+
+  const chartOptions: any =  {
+    chart: {
+      height: 390,
+      type: 'radialBar',
+    },
+    plotOptions: {
+      radialBar: {
+        offsetY: 0,
+        startAngle: 0,
+        endAngle: 270,
+        hollow: {
+          margin: 5,
+          size: '30%',
+          background: 'transparent',
+          image: undefined,
+        },
+        dataLabels: {
+          name: {
+            show: false,
+          },
+          value: {
+            show: false,
+          }
+        }
+      }
+    },
+    colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
+    labels: ['Vimeo', 'Messenger', 'Facebook', 'LinkedIn'],
+    legend: {
+      show: true,
+      floating: true,
+      fontSize: '16px',
+      position: 'left',
+      offsetX: 160,
+      offsetY: 15,
+      labels: {
+        useSeriesColors: true,
+      },
+      markers: {
+        size: 0
+      },
+      formatter: function(seriesName: any, opts: any) {
+        return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+      },
+      itemMargin: {
+        vertical: 3
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        legend: {
+            show: false
+        }
+      }
+    }]
+  };
+
+  return (
+    <Card>
+      <CardHeader title="Monthly Sales" subheader="of last three years" />
+      <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+        <ReactApexChart type="radialBar" height={390} series={yearData} options={chartOptions} />
+      </Box>
+    </Card>
+  );
+}
+
+export default AnalyticsDemographics;

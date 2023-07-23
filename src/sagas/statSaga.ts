@@ -20,6 +20,7 @@ export function* handleStatsLoad() : any{
             _id
             productID {
       category
+      name
       _id
       price
     }
@@ -46,6 +47,7 @@ export function* handleStatsLoad() : any{
             
             year
             yearlySalesTotal
+            targetSales
             yearlyTotalSoldUnits
         }
         }
