@@ -14,6 +14,7 @@ export default function AnalyticsProfitTime() {
 
   const salesData = useSelector((state: any) => state.stats);
   const [sales, setSales] = useState<any>([]);
+  const [title, setTitle] =  useState<string>('');
 
   useEffect(()=>{
     const localProducts: string[] = [];
@@ -67,7 +68,7 @@ export default function AnalyticsProfitTime() {
 
   return (
     <Card>
-      <CardHeader title="Top 3 Selling products" subheader="(+43%) than last year" />
+      <CardHeader title='Revenue, Costs and Profit split' subheader="of last year" />
       <Box sx={{ mx: 3 }} dir="ltr">
         <ReactApexChart type="bar" series={sales}  options={chartOptions}  height={364} />
       </Box>

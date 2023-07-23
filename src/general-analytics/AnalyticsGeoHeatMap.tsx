@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ResponsiveChoropleth } from '@nivo/geo';
 import { useDispatch, useSelector } from 'react-redux';
 import data from "./data";
-import countries from "./countries.json";
+import countries from "../utils/mock-data/countries.json";
 
 export default function AnalyticsGeoHeatMap() {
 //   const { data } = useSelector((state: any) => state.salesByRegion);
@@ -14,7 +14,7 @@ export default function AnalyticsGeoHeatMap() {
 
   return (
     <div style={{ height: '500px', width: '100%' }}>
-        <>fsdf</>
+        <h3>Heat Map</h3>
          <ResponsiveChoropleth
         data={data}
         features={countries.features}
@@ -26,7 +26,6 @@ export default function AnalyticsGeoHeatMap() {
         projectionTranslation={[0.5, 0.5]}
         projectionRotation={[0, 0, 0]}
         enableGraticule={true}
-        graticuleLineColor="#ffffff"
         borderWidth={0.5}
 
       />

@@ -19,7 +19,7 @@ const AnalyticsRadial = (props: data) => {
   console.log('props', props)
   const salesData = useSelector((state: any) => state.stats);
   const visitorData = useSelector((state: any) => state.visits);
-
+  const [title, setTitle] =  useState<string>('');
   const [percents, setPercentages] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
 
@@ -46,6 +46,7 @@ const AnalyticsRadial = (props: data) => {
 
       setPercentages([young, mid, old]);
       setLabels(['<18', '<45', '<75']);
+      setTitle('Sales by Age');
     } else if (props.dataType === 'Analytics'){
       const years: string[] = [];
       const saleRatios: number[] = [];
@@ -60,6 +61,8 @@ const AnalyticsRadial = (props: data) => {
       });
       setPercentages(saleRatios);
       setLabels(years);
+      setTitle('Percentage of lead conversion');
+
       console.log(years, saleRatios)
     }
 
@@ -126,7 +129,7 @@ const AnalyticsRadial = (props: data) => {
 
   return (
     <Card>
-      <CardHeader title="Monthly Sales" subheader="of last three years" />
+      <CardHeader title={title} subheader="of three years" />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <ReactApexChart type="radialBar" height={390} series={percents} options={chartOptions} />
       </Box>

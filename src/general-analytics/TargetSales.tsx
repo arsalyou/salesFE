@@ -57,7 +57,7 @@ export default function ActualVsTargetSales() {
 
   return (
     <Card>
-      <CardHeader title="Top 3 Selling products" subheader="(+43%) than last year" />
+      <CardHeader title="Actual VS Target Sales"  />
       <Box sx={{ mx: 3 }} dir="ltr">
         <ReactApexChart type="bar" series={sales}  options={chartOptions}  height={364} />
       </Box>
