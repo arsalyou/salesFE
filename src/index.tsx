@@ -44,9 +44,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <ApolloProvider client={client}>
   <Provider store={store}>
-    <ThemeConfig themePref="light">
       <GeneralAnalytics />
-    </ThemeConfig>
   </Provider>
   </ApolloProvider>
 
